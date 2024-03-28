@@ -1,13 +1,25 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Packt.Shared;
 
-namespace Northwind.Razor.Employee.MyFeature.Pages
+namespace PackFeatures.Pages
 {
-    public class Page1Model : PageModel
+    public class EmployeesPageModel : PageModel
     {
+        private NorthwindContext db;
+
+        public EmployeesPageModel(NorthwindContext injectedContext) 
+        {
+            db = injectedContext;
+        }
+
+        public Employee[] Employees { get; set; } = null!;
+
         public void OnGet()
         {
-
+            ViewData["Title"] = "Northwind B2B - Employees";
+            Employees = db.Employees.OrderBy(e=>e.LastName)
+                .ThenBy(e=>e.FirstName).ToArray();
         }
     }
 }

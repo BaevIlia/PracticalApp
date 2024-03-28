@@ -2,6 +2,7 @@
 	<ItemGroup>
 	
 		<ProjectReference Include="..\Northwind.Common.DataContext.SqlServer\Northwind.Common.DataContext.SqlServer.csproj" />
+		<ProjectReference Include="..\Northwind.Razor.Employee\Northwind.Razor.Employee.csproj" />
 		
 	</ItemGroup>
   <PropertyGroup>

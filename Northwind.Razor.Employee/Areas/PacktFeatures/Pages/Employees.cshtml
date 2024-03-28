@@ -1,13 +1,15 @@
 ﻿@page
-@model Northwind.Razor.Employee.MyFeature.Pages.Page1Model
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Page1</title>
-</head>
-<body>
-</body>
-</html>
+@using Packt.Shared
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model PackFeatures.Pages.EmployeesPageModel
+<div class="row">
+    <h1 class="desplay-2">Employees</h1>
+</div>
+<div class="row">
+    @foreach(Employee employee in Model.Employees)
+    {
+        <div class="col-sm-3">
+            <partial name="_Employee" model="employee" />
+        </div>        
+    }
+</div>
