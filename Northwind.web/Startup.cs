@@ -1,4 +1,5 @@
-﻿using Packt.Shared;
+﻿using static System.Console;
+using Packt.Shared;
 
 
 namespace Northwind.web
@@ -19,6 +20,24 @@ namespace Northwind.web
             }
 
             app.UseRouting();
+
+            app.Use(async (HttpContext context, Func<Task> next) =>
+            {
+                RouteEndpoint? rep = context.GetEndpoint() as RouteEndpoint;
+                if (rep is not null)
+                {
+                    WriteLine($"Endpoint name: {rep.DisplayName}");
+                    WriteLine($"Endpoint route pattern: {rep.RoutePattern.RawText}");
+                }
+                if (context.Request.Path == "/bonjour")
+                {
+                    await context.Response.WriteAsync("Bonjur Monde!");
+                    return;
+                }
+
+                await next();
+            });
+
             app.UseHttpsRedirection();
 
             app.UseDefaultFiles();

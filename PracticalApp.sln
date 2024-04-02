@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Northwind.Common.DataContex
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Northwind.Common.EntityModels.SqlServer", "Northwind.Common.EntityModels.SqlServer\Northwind.Common.EntityModels.SqlServer.csproj", "{D32668C4-05FE-434E-AC00-45B9ECEC094E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Northwind.Razor.Employee", "Northwind.Razor.Employee\Northwind.Razor.Employee.csproj", "{794B4C28-D39E-49D4-930D-129429FDFD83}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Northwind.Razor.Employee", "Northwind.Razor.Employee\Northwind.Razor.Employee.csproj", "{794B4C28-D39E-49D4-930D-129429FDFD83}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

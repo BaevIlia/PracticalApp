@@ -1,0 +1,43 @@
+﻿@page
+@using Packt.Shared
+@model Northwind.web.Pages.CustomersModel
+@{
+    string title = "Customers by Country";
+    ViewData["Title"] = $"Northwind B2B - {title}";
+}
+
+<div class="row">
+    <h1 class="display-2">@title</h1>
+    <div class="accordion" id="accordionCustomers" >
+        @if (Model.CustomersByCountry is not null)
+        {
+            @foreach (IGrouping<string?, Customer> customerByCountry in Model.CustomersByCountry)
+            {
+                <div class="accordion-item" >
+                    <h2 class="accordion-header" id="header@(customerByCountry.Key)" >
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapse@(customerByCountry.Key)"
+                        aria-expanded="true" aria-controls="collapse@(customerByCountry.Key)">
+                        @customerByCountry.Key has @customerByCountry.Count() customers
+                    </button>
+                    </h2>
+                </div>
+                <div id="collapse@(customerByCountry.Key)" class="accordion-collapse collapse"
+                aria-labelledby="heading@(customerByCountry.Key)" data-bs-parent="#accordionCustomers">
+                <div class="accordion-body">
+                    <ul>
+                        @foreach(Customer c in customerByCountry)
+                            {
+                                <li>
+                                    <a href="customersinfo?id=@c.CustomerId">
+                                        @c.CompanyName
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                </div>
+            </div>
+            }
+        }
+    </div>
+</div>
