@@ -2,7 +2,7 @@
 using Northwind.mvc.Models;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Authorization;
-
+using System.ComponentModel.DataAnnotations;
 
 namespace Northwind.mvc.Controllers
 {
@@ -17,6 +17,7 @@ namespace Northwind.mvc.Controllers
             _logger = logger;
         }
 
+        
         [ResponseCache(Duration =10, Location =ResponseCacheLocation.Any)]
         public IActionResult Index()
         {
@@ -26,6 +27,7 @@ namespace Northwind.mvc.Controllers
             _logger.LogInformation("I'm in the Index method of the HomeController");
             return View();
         }
+        [Route("private")]
         [Authorize(Roles = "Administrators")]
         public IActionResult Privacy()
         {
