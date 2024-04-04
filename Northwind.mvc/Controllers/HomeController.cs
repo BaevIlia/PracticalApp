@@ -64,5 +64,20 @@ namespace Northwind.mvc.Controllers
             }
             return View(model);
         }
+        public IActionResult ModelBinding() 
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult ModelBinding(Thing thing) 
+        {
+            HomeModelBindingViewModel model = new
+                (
+                thing,
+                !ModelState.IsValid,
+                ModelState.Values.SelectMany(state => state.Errors).Select(error=>error.ErrorMessage)
+                );
+            return View(model);
+        }
     }
 }
