@@ -17,6 +17,7 @@ namespace Northwind.mvc.Controllers
             _logger = logger;
         }
 
+        [ResponseCache(Duration =10, Location =ResponseCacheLocation.Any)]
         public IActionResult Index()
         {
             _logger.LogError("This is a serious error (not really)!");
