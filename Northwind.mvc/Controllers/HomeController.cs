@@ -20,8 +20,8 @@ namespace Northwind.mvc.Controllers
             db = injectedContext;
         }
 
-        
-        [ResponseCache(Duration =10, Location =ResponseCacheLocation.Any)]
+
+        [ResponseCache(Duration = 10, Location = ResponseCacheLocation.Any)]
         public IActionResult Index()
         {
             _logger.LogError("This is a serious error (not really)!");
@@ -48,6 +48,21 @@ namespace Northwind.mvc.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public IActionResult ProductDetail(int? id) 
+        {
+            if (!id.HasValue) 
+            {
+                return BadRequest("You must pass a product ID in the route, for example, /Home/ProductDetail/21");
+            }
+            Product? model = db.Products.SingleOrDefault(p => p.ProductId == id);
+
+            if(model == null) 
+            {
+                return NotFound($"ProductId {id} not found");
+            }
+            return View(model);
         }
     }
 }

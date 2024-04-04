@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Northwind.Common.EntityMode
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Northwind.Razor.Employee", "Northwind.Razor.Employee\Northwind.Razor.Employee.csproj", "{794B4C28-D39E-49D4-930D-129429FDFD83}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Northwind.mvc", "Northwind.mvc\Northwind.mvc.csproj", "{3F0AAA37-7D93-4CD6-998D-8D7C516758C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Northwind.mvc", "Northwind.mvc\Northwind.mvc.csproj", "{3F0AAA37-7D93-4CD6-998D-8D7C516758C1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
