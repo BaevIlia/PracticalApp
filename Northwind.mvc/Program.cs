@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Northwind.mvc.Data;
+using Packt.Shared;
 
 namespace Northwind.mvc
 {
@@ -20,6 +21,10 @@ namespace Northwind.mvc
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             builder.Services.AddControllersWithViews();
+
+            string sqlServerConnection = builder.Configuration.GetConnectionString("NorthwindConnection");
+
+            builder.Services.AddNorthwindContext(sqlServerConnection);
 
             var app = builder.Build();
 

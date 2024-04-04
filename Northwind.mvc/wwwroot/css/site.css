@@ -16,3 +16,18 @@ html {
 body {
   margin-bottom: 60px;
 }
+#product-columns {
+    column-count: 3;
+}
+
+#products-img {
+   filter:blur(3px)
+}
+#category-name {
+
+    
+    backdrop-filter: blur(2px)
+}
+#category-description {
+    backdrop-filter: blur(2px)
+}
