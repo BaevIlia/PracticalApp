@@ -1,12 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Northwind.mvc.Models;
 using System.Diagnostics;
+using Microsoft.AspNetCore.Authorization;
+
 
 namespace Northwind.mvc.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+
+
 
         public HomeController(ILogger<HomeController> logger)
         {
@@ -15,9 +19,13 @@ namespace Northwind.mvc.Controllers
 
         public IActionResult Index()
         {
+            _logger.LogError("This is a serious error (not really)!");
+            _logger.LogWarning("This is your first warning");
+            _logger.LogWarning("Second warning!");
+            _logger.LogInformation("I'm in the Index method of the HomeController");
             return View();
         }
-
+        [Authorize(Roles = "Administrators")]
         public IActionResult Privacy()
         {
             return View();
