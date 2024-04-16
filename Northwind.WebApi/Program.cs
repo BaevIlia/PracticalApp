@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Mvc.Formatters;
+using Packt.Shared;
 namespace Northwind.WebApi
 {
     public class Program
@@ -7,8 +9,25 @@ namespace Northwind.WebApi
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-
-            builder.Services.AddControllers();
+            builder.Services.AddNorthwindContext();
+            builder.Services.AddControllers(options=>
+            {
+                Console.WriteLine("Default output formatters:");
+                foreach (IOutputFormatter formatter in options.OutputFormatters) 
+                {
+                    OutputFormatter? mediaFormatter = formatter as OutputFormatter;
+                    if (mediaFormatter == null)
+                    {
+                        Console.WriteLine($"  {formatter.GetType().Name}");
+                    }
+                    else 
+                    {
+                        Console.WriteLine(" {0}, Media types: {1}",
+                            arg0: mediaFormatter.GetType().Name,
+                            arg1:string.Join(", ", mediaFormatter.SupportedMediaTypes));
+                    }
+                }
+            }).AddXmlDataContractSerializerFormatters().AddXmlSerializerFormatters();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
