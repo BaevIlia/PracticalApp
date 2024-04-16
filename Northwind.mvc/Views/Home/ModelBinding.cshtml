@@ -24,7 +24,7 @@
            <dt>Model.Color</dt>
            <dt>@Model.thing.Id</dt>
            <dt>Model.thing.Email</dt>
-           <dd>@Model.thing.Email</dd>
+           <dd>@Html.DisplayFor(model=>model.thing.Email)</dd>
         </dl>
     </div>
     @if (Model.HasErrors)
