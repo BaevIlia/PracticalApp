@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Packt.Shared;
 using Northwind.WebApi.Repositories;
+using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.SwaggerUI;
 namespace Northwind.WebApi
 {
     public class Program
@@ -32,7 +34,10 @@ namespace Northwind.WebApi
             }).AddXmlDataContractSerializerFormatters().AddXmlSerializerFormatters();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGen(c=>
+            {
+                c.SwaggerDoc("v1", new() { Title = "Northwind Service Api", Version = "v1" });
+            });
             builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
             var app = builder.Build();
 
