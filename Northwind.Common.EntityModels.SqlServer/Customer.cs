@@ -15,6 +15,7 @@ namespace Packt.Shared
   {
     public Customer()
     {
+      CustomerTypes = new HashSet<CustomerDemographic>();
       Orders = new HashSet<Order>();
     }
 

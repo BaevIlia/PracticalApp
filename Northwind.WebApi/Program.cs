@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Packt.Shared;
+using Northwind.WebApi.Repositories;
 namespace Northwind.WebApi
 {
     public class Program
@@ -9,6 +10,7 @@ namespace Northwind.WebApi
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+         
             builder.Services.AddNorthwindContext();
             builder.Services.AddControllers(options=>
             {
@@ -31,7 +33,7 @@ namespace Northwind.WebApi
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-
+            builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

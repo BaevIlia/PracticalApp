@@ -44,7 +44,7 @@ namespace Northwind.WebApi.Repositories
 
         public Task<IEnumerable<Customer>> RetrieveAllAsync()
         {
-            return Task.FromResult(customersCache is not null ? Enumerable.Empty<Customer>() : customersCache.Values);
+            return Task.FromResult(customersCache is null ? Enumerable.Empty<Customer>() : customersCache.Values);
         }
         public Task<Customer?> RetrieveAsync(string id)
         {
