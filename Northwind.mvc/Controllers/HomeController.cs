@@ -12,13 +12,14 @@ namespace Northwind.mvc.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly NorthwindContext db;
+        private readonly IHttpClientFactory clientFactory;
 
 
-
-        public HomeController(ILogger<HomeController> logger, NorthwindContext injectedContext)
+        public HomeController(ILogger<HomeController> logger, NorthwindContext injectedContext, IHttpClientFactory clientFactory)
         {
             _logger = logger;
             db = injectedContext;
+            this.clientFactory = clientFactory;
         }
 
 
@@ -98,6 +99,32 @@ namespace Northwind.mvc.Controllers
                 return NotFound($"No products cost more than {price:C}.");
             }
             ViewData["MaxPrice"] = price.Value.ToString("C");
+            return View(model);
+        }
+
+        public async Task<IActionResult> Customer(string country) 
+        {
+            string uri;
+
+            if (string.IsNullOrEmpty(country))
+            {
+                ViewData["Title"] = "All Customers Worldwide";
+                uri = "api/customers/";
+            }
+            else
+            {
+                ViewData["Title"] = $"Customers in {country}";
+                uri = $"api/customers/?country={country}";
+
+            }
+
+            HttpClient client = clientFactory.CreateClient(name: "Northwind.WebApi");
+
+            HttpRequestMessage request = new(method: HttpMethod.Get, requestUri: uri);
+
+            HttpResponseMessage response = await client.SendAsync(request);
+
+            IEnumerable<Customer>? model = await response.Content.ReadFromJsonAsync<IEnumerable<Customer>>();
             return View(model);
         }
     }

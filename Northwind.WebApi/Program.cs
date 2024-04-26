@@ -4,6 +4,7 @@ using Northwind.WebApi.Repositories;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerUI;
 using Microsoft.AspNetCore.HttpLogging;
+using System.Net.Http.Headers;
 namespace Northwind.WebApi
 {
     public class Program
@@ -12,8 +13,15 @@ namespace Northwind.WebApi
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            builder.WebHost.UseUrls("https://localhost:5002/");
+
             // Add services to the container.
-         
+            builder.Services.AddHttpClient(name: "Northwind.WebApi", configureClient: options =>
+            {
+                options.BaseAddress = new Uri("https:localhost:5002/");
+                options.DefaultRequestHeaders.Accept.Add(
+                    new MediaTypeWithQualityHeaderValue("application/json", 1.0));
+            });
             builder.Services.AddNorthwindContext();
             builder.Services.AddControllers(options=>
             {
@@ -33,7 +41,7 @@ namespace Northwind.WebApi
                     }
                 }
             }).AddXmlDataContractSerializerFormatters().AddXmlSerializerFormatters();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(c=>
             {
@@ -49,7 +57,7 @@ namespace Northwind.WebApi
             });
 
             var app = builder.Build();
-
+            app.UseHttpLogging();
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
@@ -69,7 +77,7 @@ namespace Northwind.WebApi
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-            app.UseHttpLogging();
+           
 
             app.MapControllers();
 
